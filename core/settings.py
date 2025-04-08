@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+LOGIN_URL = '/login/'
 
 TEMPLATES = [
     {
@@ -68,7 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-LOGIN_URL = '/login/'
+
 
 
 # Database
