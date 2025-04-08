@@ -47,6 +47,9 @@ A minimal Quora-inspired Q&A platform built with Django.
 - SQLite
 - Bootstrap 5 (CDN)
 
+## Notes
+> ⚠️ **Note:** The commit history has been rebased and cleaned for readability, so the original commit timestamps may not reflect the actual development timeline.
+
 ## 🧑‍💻 Author
 👋 Hi, I'm Diva — a backend developer who enjoys building clean, functional web applications with Django and Python.
 This project is a minimalist Quora-inspired Q&A platform built to demonstrate backend design, authentication, and CRUD functionality using Django.
