@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{ question.title }}</h2>
-    <p>{{ question.description }}</p>
-    <p>Asked by {{ question.user.username }}</p>
+    <h3>{{ question.title }}</h3>
+    <p class="text-muted">Asked by {{ question.user.username }}</p>
+    <hr>
 
-    <h3>Answers:</h3>
+    <h5 class="mt-4">Answers</h5>
     {% for answer in answers %}
-        <div style="border:1px solid #ccc; margin-bottom:10px; padding:5px;">
-            <p>{{ answer.content }}</p>
-            <p>By {{ answer.user.username }} |
-                <a href="{% url 'like_answer' answer.id %}">Like ({{ answer.likes.count }})</a>
-            </p>
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>{{ answer.content }}</p>
+                <small class="text-muted">by {{ answer.user.username }}</small>
+                <form method="post" action="{% url 'like_answer' answer.id %}" class="mt-2">
+                    {% csrf_token %}
+                    {% if user in answer.likes.all %}
+                        <button class="btn btn-sm btn-danger" type="submit">
+                            Unlike ({{ answer.likes.count }})
+                        </button>
+                    {% else %}
+                        <button class="btn btn-sm btn-outline-danger" type="submit">
+                            Like ({{ answer.likes.count }})
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
         </div>
     {% empty %}
-        <p>No answers yet.</p>
+        <p class="text-muted">No answers yet. Be the first to answer.</p>
     {% endfor %}
 
-    <h3>Post an Answer</h3>
+    <hr>
+    <h5 class="mt-4">Your Answer</h5>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit Answer</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+        <button class="btn btn-primary" type="submit">Submit Answer</button>
     </form>
 {% endblock %}

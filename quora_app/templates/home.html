@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>All Questions</h2>
-    <a href="{% url 'post_question' %}">Ask a Question</a>
-    <ul>
-        {% for question in questions %}
-            <li>
-                <a href="{% url 'question_detail' question.id %}">{{ question.title }}</a>
-                by {{ question.user.username }}
-            </li>
-        {% empty %}
-            <li>No questions yet.</li>
-        {% endfor %}
-    </ul>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Questions For You</h2>
+        <a class="btn btn-primary" href="{% url 'post_question' %}">Ask a Question</a>
+    </div>
+
+    {% if questions %}
+        <ul class="list-group">
+            {% for question in questions %}
+                <li class="list-group-item bg-white mb-2">
+                    <a href="{% url 'question_detail' question.id %}" class="h5 d-block">{{ question.title }}</a>
+                    <small class="text-muted">by {{ question.user.username }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">No questions yet. Be the first to ask!</p>
+    {% endif %}
 {% endblock %}

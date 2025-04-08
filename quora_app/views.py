@@ -86,5 +86,9 @@ class LikeAnswerView(LoginRequiredMixin, RedirectView):
     ''' View for liking an answer. '''
     def get_redirect_url(self, *args, **kwargs):
         answer = get_object_or_404(Answer, id=kwargs['answer_id'])
-        answer.likes.add(self.request.user)
+        user = self.request.user
+        if user in answer.likes.all():
+            answer.likes.remove(user)
+        else:
+            answer.likes.add(user)
         return reverse_lazy('question_detail', kwargs={'pk': answer.question.id})
