@@ -19,6 +19,10 @@ class RegisterView(FormView):
         messages.success(self.request, "Registration successful! You can now log in.")
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        messages.error(self.request, "Registration failed. Please correct the errors below.")
+        return super().form_invalid(form)
+
 class LoginView(FormView):
     ''' View for user login. '''
     template_name = 'login.html'
@@ -32,7 +36,14 @@ class LoginView(FormView):
         )
         if user:
             login(self.request, user)
-        return super().form_valid(form)
+            return super().form_valid(form)
+        else:
+            messages.error(self.request, "Invalid login. Please try again. Note that both fields may be case-sensitive.")
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Please enter a correct username and password. Note that both fields may be case-sensitive.")
+        return super().form_invalid(form)
 
 class LogoutView(RedirectView):
     ''' View for user logout. '''
