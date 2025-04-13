@@ -1,4 +1,5 @@
 # 📝 Quora Clone
+![License](https://img.shields.io/badge/license-CC--BY--NC%204.0-blue.svg)
 
 A minimal Quora-inspired Q&A platform built with Django.
 
